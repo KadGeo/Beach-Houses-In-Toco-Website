@@ -1,0 +1,18 @@
+# robots.txt for Toco Beach Houses
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://beachhousesintoco.com/sitemap.xml
+
+# Disallow crawling of specific directories
+Disallow: /assets/vendor/
+Disallow: /forms/
+
+# Allow all other pages
+Allow: /index.html
+Allow: /blog.html
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/img/
