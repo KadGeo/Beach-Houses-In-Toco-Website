@@ -45,7 +45,6 @@
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="print" onload="this.media='all'">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" media="print" onload="this.media='all'">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" media="print" onload="this.media='all'">
 
   <!-- Fallback for browsers without JavaScript -->
   <noscript>
@@ -54,7 +53,6 @@
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   </noscript>
 </head>
 
@@ -197,20 +195,12 @@
             <div class="row mb-4">
               <div class="col-md-4 mb-3 mb-md-0">
                 <label for="checkIn" class="form-label">Check-in:</label>
-                <div style="position: relative;">
-                  <input type="text" class="form-control" id="checkIn" name="checkIn" 
-                         placeholder="Select date" required readonly>
-                  <i class="bi bi-calendar" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #667eea; pointer-events: none;"></i>
-                </div>
+                <input type="date" class="form-control" id="checkIn" name="checkIn" required>
               </div>
-              
+
               <div class="col-md-4 mb-3 mb-md-0">
                 <label for="checkOut" class="form-label">Check-out:</label>
-                <div style="position: relative;">
-                  <input type="text" class="form-control" id="checkOut" name="checkOut" 
-                         placeholder="Select date" required readonly>
-                  <i class="bi bi-calendar" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #667eea; pointer-events: none;"></i>
-                </div>
+                <input type="date" class="form-control" id="checkOut" name="checkOut" required>
               </div>
               
               <div class="col-md-4">
@@ -321,40 +311,32 @@
   <script src="assets/vendor/php-email-form/validate.js" defer></script>
   <script src="assets/vendor/aos/aos.js" defer></script>
 
-  <!-- Flatpickr JS - Deferred -->
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
-
   <!-- Main JS File - Deferred -->
   <script src="assets/js/main.js" defer></script>
 
   <!-- Custom Booking Script - Deferred -->
   <script defer>
     window.addEventListener('DOMContentLoaded', function() {
-      // Initialize date pickers
-      const today = new Date();
-      const tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate() + 1);
+      // Initialize native HTML5 date inputs
+      const today = new Date().toISOString().split('T')[0];
+      const checkInInput = document.getElementById('checkIn');
+      const checkOutInput = document.getElementById('checkOut');
 
-      const checkInPicker = flatpickr("#checkIn", {
-        minDate: "today",
-        dateFormat: "Y-m-d",
-        onChange: function(selectedDates, dateStr, instance) {
-          if (selectedDates.length > 0) {
-            const minCheckOut = new Date(selectedDates[0]);
-            minCheckOut.setDate(minCheckOut.getDate() + 1);
-            checkOutPicker.set('minDate', minCheckOut);
+      checkInInput.setAttribute('min', today);
 
-            const currentCheckOut = checkOutPicker.selectedDates[0];
-            if (currentCheckOut && currentCheckOut <= selectedDates[0]) {
-              checkOutPicker.clear();
-            }
-          }
+      // Update check-out min date when check-in changes
+      checkInInput.addEventListener('change', function() {
+        const checkInDate = new Date(this.value);
+        const minCheckOut = new Date(checkInDate);
+        minCheckOut.setDate(minCheckOut.getDate() + 1);
+        const minCheckOutStr = minCheckOut.toISOString().split('T')[0];
+
+        checkOutInput.setAttribute('min', minCheckOutStr);
+
+        // Clear check-out if it's before the new minimum
+        if (checkOutInput.value && checkOutInput.value <= this.value) {
+          checkOutInput.value = '';
         }
-      });
-
-      const checkOutPicker = flatpickr("#checkOut", {
-        minDate: tomorrow,
-        dateFormat: "Y-m-d"
       });
 
       // Handle form submission
@@ -364,8 +346,8 @@
         const formData = {
           fullName: document.getElementById('fullName').value,
           email: document.getElementById('email').value,
-          checkIn: document.getElementById('checkIn').value,
-          checkOut: document.getElementById('checkOut').value,
+          checkIn: checkInInput.value,
+          checkOut: checkOutInput.value,
           guests: document.getElementById('guests').value
         };
 
@@ -379,8 +361,6 @@
 
         // Reset form
         this.reset();
-        checkInPicker.clear();
-        checkOutPicker.clear();
       });
 
       // Smooth scroll and active nav highlighting
