@@ -429,7 +429,7 @@ html {
   .hero-title,
   .site-title {
     font-size: clamp(1.1rem, 1.3rem + 2vw, 3.6rem) !important;
-    -webkit-text-stroke: 0.7px yellow;
+    -webkit-text-stroke: 0.5px yellow;
   }
 
   .logo-img {
@@ -476,7 +476,7 @@ html {
     left: 52%;
     transform: translateX(-40%);
     white-space: nowrap;
-    -webkit-text-stroke: yellow 0.9px !important;
+    -webkit-text-stroke: yellow 0.5px !important;
   }
 
   .description-box {
