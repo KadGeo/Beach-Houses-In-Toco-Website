@@ -12,10 +12,13 @@
   <link href="assets\img\Beach houses in Toco Logo.png" rel="icon">
   <link href="assets\img\Beach houses in Toco Logo.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Fonts - optimized with display=swap and limited weights -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +43,7 @@
 
       <a href="#home" class="logo d-flex align-items-center">
         <h1 class="sitename">TBH</h1>
-        <img src="assets\img\Beach houses in Toco Logo.png" alt="Beach Houses in Toco Logo" class="logo-img">
+        <img src="assets\img\Beach houses in Toco Logo.png" alt="Beach Houses in Toco Logo" class="logo-img" loading="eager" width="100" height="100">
       </a>
 
       <h1 class="hero-title">Beach Houses in Toco</h1>
@@ -290,74 +293,74 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
+  <!-- Vendor JS Files - Deferred for performance -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/vendor/php-email-form/validate.js" defer></script>
+  <script src="assets/vendor/aos/aos.js" defer></script>
 
-  <!-- Flatpickr JS -->
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- Flatpickr JS - Deferred -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <!-- Main JS File - Deferred -->
+  <script src="assets/js/main.js" defer></script>
 
-  <!-- Custom Booking Script -->
-  <script>
-    // Initialize date pickers
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+  <!-- Custom Booking Script - Deferred -->
+  <script defer>
+    window.addEventListener('DOMContentLoaded', function() {
+      // Initialize date pickers
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const checkInPicker = flatpickr("#checkIn", {
-      minDate: "today",
-      dateFormat: "Y-m-d",
-      onChange: function(selectedDates, dateStr, instance) {
-        if (selectedDates.length > 0) {
-          const minCheckOut = new Date(selectedDates[0]);
-          minCheckOut.setDate(minCheckOut.getDate() + 1);
-          checkOutPicker.set('minDate', minCheckOut);
-          
-          const currentCheckOut = checkOutPicker.selectedDates[0];
-          if (currentCheckOut && currentCheckOut <= selectedDates[0]) {
-            checkOutPicker.clear();
+      const checkInPicker = flatpickr("#checkIn", {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates, dateStr, instance) {
+          if (selectedDates.length > 0) {
+            const minCheckOut = new Date(selectedDates[0]);
+            minCheckOut.setDate(minCheckOut.getDate() + 1);
+            checkOutPicker.set('minDate', minCheckOut);
+
+            const currentCheckOut = checkOutPicker.selectedDates[0];
+            if (currentCheckOut && currentCheckOut <= selectedDates[0]) {
+              checkOutPicker.clear();
+            }
           }
         }
-      }
-    });
+      });
 
-    const checkOutPicker = flatpickr("#checkOut", {
-      minDate: tomorrow,
-      dateFormat: "Y-m-d"
-    });
+      const checkOutPicker = flatpickr("#checkOut", {
+        minDate: tomorrow,
+        dateFormat: "Y-m-d"
+      });
 
-    // Handle form submission
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+      // Handle form submission
+      document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-      const formData = {
-        fullName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-        checkIn: document.getElementById('checkIn').value,
-        checkOut: document.getElementById('checkOut').value,
-        guests: document.getElementById('guests').value
-      };
+        const formData = {
+          fullName: document.getElementById('fullName').value,
+          email: document.getElementById('email').value,
+          checkIn: document.getElementById('checkIn').value,
+          checkOut: document.getElementById('checkOut').value,
+          guests: document.getElementById('guests').value
+        };
 
-      // Calculate number of nights
-      const checkInDate = new Date(formData.checkIn);
-      const checkOutDate = new Date(formData.checkOut);
-      const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+        // Calculate number of nights
+        const checkInDate = new Date(formData.checkIn);
+        const checkOutDate = new Date(formData.checkOut);
+        const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
 
-      // Display booking summary
-      alert(`Booking Request Summary:\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nNights: ${nights}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
-      
-      // Reset form
-      this.reset();
-      checkInPicker.clear();
-      checkOutPicker.clear();
-    });
+        // Display booking summary
+        alert(`Booking Request Summary:\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nNights: ${nights}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
 
-    // Smooth scroll and active nav highlighting
-    document.addEventListener('DOMContentLoaded', function() {
+        // Reset form
+        this.reset();
+        checkInPicker.clear();
+        checkOutPicker.clear();
+      });
+
+      // Smooth scroll and active nav highlighting
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.navmenu a');
 
@@ -380,7 +383,7 @@
         });
       }
 
-      window.addEventListener('scroll', highlightNav);
+      window.addEventListener('scroll', highlightNav, { passive: true });
     });
   </script>
 

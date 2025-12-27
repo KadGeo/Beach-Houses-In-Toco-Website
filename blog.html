@@ -10,10 +10,12 @@
 <!-- Favicons -->
 <link href="assets\img\Beach houses in Toco Logo.png" rel="icon"/>
 <link href="assets\img\Beach houses in Toco Logo.png" rel="apple-touch-icon"/>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&amp;family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&amp;display=swap" rel="stylesheet"/>
+<!-- Preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+<!-- Fonts - optimized with display=swap and limited weights -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Poppins:wght@400;500;600;700;800&amp;family=Raleway:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <!-- Vendor CSS Files -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
@@ -82,7 +84,7 @@
 <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 <a class="logo d-flex align-items-center" href="index.html">
 <div class="sitename">TBH</div>
-<img alt="Beach Houses in Toco Logo" class="logo-img" src="assets\img\Beach houses in Toco Logo.png"/>
+<img alt="Beach Houses in Toco Logo" class="logo-img" src="assets\img\Beach houses in Toco Logo.png" loading="eager" width="100" height="100"/>
 </a>
 <h2 class="site-title">Beach Houses in Toco</h2>
 <nav class="navmenu" id="navmenu">
@@ -196,7 +198,7 @@
                   entry and gentler waves.
                 </p>
 <div style="width: 100%; height: 500px; overflow: hidden; border-radius: 10px;margin-top: 5rem; margin-bottom: 2rem;">
-  <img alt="Salybia Bay Beach" src="assets\img\Salybia Bay Web.webp" style="width: 100%; height: auto; object-fit: cover; object-position: center top;"/>
+  <img alt="Salybia Bay Beach" src="assets\img\Salybia Bay Web.webp" style="width: 100%; height: auto; object-fit: cover; object-position: center top;" loading="lazy" width="800" height="500"/>
  </div>
  <h4 class="Salybia-img-title" style=" color:rgb(255, 255, 255); font-weight: 700; font-size: 1.3rem;text-align:center; margin-bottom: 6rem;" > Image of Salybia Bay Toco By Alan Charles Photography</h4>
 <h3 style="color: #e7f52c; margin-top: 1.5rem; margin-bottom: 0.8rem; font-size: 1.4rem;">Galera Point Area</h3>
@@ -250,14 +252,15 @@
 <li style="margin-bottom: 0.8rem;"><strong>Galera Point Lighthouse:</strong> Visit Trinidad's northeastern tip for panoramic ocean views</li>
 <li style="margin-bottom: 0.8rem;"><strong>Turtle Watching:</strong> March-August, witness leatherback turtles nesting at Grand Riviere</li>
 <div style="margin: 2rem 0; text-align: center;">
-  <iframe 
-    width="100%" 
-    style="max-width: 800px; aspect-ratio: 16/9;" 
-    src="https://www.youtube.com/embed/tfAbZ5wWS4A?si=esC6pfkpCuO3A-2l" 
-    title="Video of Turtle Wactching at Grand Riviere" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen>
+  <iframe
+    width="100%"
+    style="max-width: 800px; aspect-ratio: 16/9;"
+    src="https://www.youtube.com/embed/tfAbZ5wWS4A?si=esC6pfkpCuO3A-2l"
+    title="Video of Turtle Wactching at Grand Riviere"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    loading="lazy">
   </iframe>
 </div>
 <h4 class="Salybia-img-title" style=" color:rgb(255, 255, 255); font-weight: 700; font-size: 1.3rem;text-align:center; margin-bottom: 6rem;" > Video of Turtle Watching at Grand Riviere</h4>
@@ -426,11 +429,11 @@
 <a class="scroll-top d-flex align-items-center justify-content-center" href="#" id="scroll-top"><i class="bi bi-arrow-up-short"></i></a>
 <!-- Preloader -->
 <div id="preloader"></div>
-<!-- Vendor JS Files -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
-<script src="assets/vendor/aos/aos.js"></script>
-<!-- Main JS File -->
-<script src="assets/js/main.js"></script>
+<!-- Vendor JS Files - Deferred for performance -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+<script src="assets/vendor/php-email-form/validate.js" defer></script>
+<script src="assets/vendor/aos/aos.js" defer></script>
+<!-- Main JS File - Deferred -->
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
