@@ -12,10 +12,16 @@
   <link href="assets\img\Beach houses in Toco Logo-100.webp" rel="icon">
   <link href="assets\img\Beach houses in Toco Logo-100.webp" rel="apple-touch-icon">
 
-  <!-- Preconnect for performance -->
+  <!-- Resource hints for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Preload critical above-the-fold resources -->
+  <link rel="preload" href="assets/img/Beach houses in Toco Logo Background Image.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/img/Beach houses in Toco Logo-100.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/css/main.css" as="style">
+  <link rel="preload" href="assets/css/custom.css" as="style">
 
   <!-- Critical inline CSS for immediate render -->
   <style>
@@ -60,7 +66,7 @@
 
       <a href="#home" class="logo d-flex align-items-center">
         <h1 class="sitename">TBH</h1>
-        <img src="assets\img\Beach houses in Toco Logo-100.webp" alt="Beach Houses in Toco Logo" class="logo-img" loading="eager" width="100" height="100">
+        <img src="assets\img\Beach houses in Toco Logo-100.webp" alt="Beach Houses in Toco Logo" class="logo-img" loading="eager" fetchpriority="high" width="100" height="100">
       </a>
 
       <h1 class="hero-title">Beach Houses in Toco</h1>
