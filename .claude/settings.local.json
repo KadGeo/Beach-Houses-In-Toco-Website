@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(magick identify:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(magick:*)"
     ]
   }
 }

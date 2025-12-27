@@ -14,17 +14,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
-<!-- Preload critical above-the-fold resources -->
-<link rel="preload" href="assets/img/Beach houses in Toco Logo Background Image.webp" as="image" fetchpriority="high"/>
-<link rel="preload" href="assets/img/Beach houses in Toco Logo-100.webp" as="image" fetchpriority="high"/>
+<!-- Preload critical LCP image with highest priority -->
+<link rel="preload" href="assets/img/Beach houses in Toco Logo Background Image-small.webp" as="image" fetchpriority="high" imagesrcset="assets/img/Beach houses in Toco Logo Background Image-small.webp 512w, assets/img/Beach houses in Toco Logo Background Image.webp 1024w"/>
+<link rel="preload" href="assets/img/Beach houses in Toco Logo-100.webp" as="image"/>
 <link rel="preload" href="assets/css/main.css" as="style"/>
 <link rel="preload" href="assets/css/custom.css" as="style"/>
 
 <!-- Critical inline CSS for immediate render -->
 <style>
   :root{--default-font:"Roboto",system-ui,-apple-system,sans-serif;--heading-font:"Raleway",sans-serif;--nav-font:"Poppins",sans-serif;--background-color:#fff;--default-color:#fff;--heading-color:#a416fd;--accent-color:#a416fd;--nav-color:#e7f52c;--nav-hover-color:#a416fd;scroll-behavior:smooth}
-  body{color:var(--default-color);background-color:var(--background-color);font-family:var(--default-font);background:url("assets/img/Beach houses in Toco Logo Background Image.webp") center 35% no-repeat;background-size:cover;position:relative;margin:0}
+  body{color:var(--default-color);background-color:var(--background-color);font-family:var(--default-font);background:url("assets/img/Beach houses in Toco Logo Background Image-small.webp") center 35% no-repeat;background-size:cover;position:relative;margin:0}
   body::before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:rgba(49,71,89,0.6)}
+  @media (min-width:1024px){body{background-image:url("assets/img/Beach houses in Toco Logo Background Image.webp")}}
   .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,0.5);min-height:80px;height:80px}
   .header .container-fluid{min-height:80px;height:80px}
   .logo-img{height:100px!important;max-height:100px!important;width:100px!important;margin-left:10px}
