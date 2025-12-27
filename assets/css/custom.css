@@ -508,6 +508,12 @@ html {
     left: 0;
   }
 
+  /* Blog page paragraph styling */
+  body.blog-page p {
+    font-size: 4rem;
+    font-weight: 1000;
+  }
+
   .oval-button {
     right: 0;
   }
