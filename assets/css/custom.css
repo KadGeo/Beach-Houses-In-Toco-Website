@@ -424,17 +424,28 @@ html {
   /* Header adjustments for tablet sizes */
   .header {
     min-height: 70px;
+    z-index: 1000;
   }
 
   .hero-title,
   .site-title {
     font-size: clamp(1.1rem, 1.3rem + 2vw, 3.6rem) !important;
-    -webkit-text-stroke:0 ;
+    -webkit-text-stroke: 1px yellow;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
   }
 
   .logo-img {
     height: clamp(50px, 5vw + 30px, 100px) !important;
     max-height: clamp(50px, 5vw + 30px, 100px) !important;
+  }
+
+  /* Ensure hamburger menu is visible */
+  .mobile-nav-toggle {
+    z-index: 1001 !important;
+    position: relative;
   }
 }
 
