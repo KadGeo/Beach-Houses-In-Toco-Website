@@ -25,10 +25,12 @@
   :root{--default-font:"Roboto",system-ui,-apple-system,sans-serif;--heading-font:"Raleway",sans-serif;--nav-font:"Poppins",sans-serif;--background-color:#fff;--default-color:#fff;--heading-color:#a416fd;--accent-color:#a416fd;--nav-color:#e7f52c;--nav-hover-color:#a416fd;scroll-behavior:smooth}
   body{color:var(--default-color);background-color:var(--background-color);font-family:var(--default-font);background:url("assets/img/Beach houses in Toco Logo Background Image.webp") center 35% no-repeat;background-size:cover;position:relative;margin:0}
   body::before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:rgba(49,71,89,0.6)}
-  .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,0.5);min-height:80px}
-  .logo-img{height:100px!important;max-height:100px!important;width:auto;margin-left:10px}
-  .sitename{font-size:2.5rem!important;color:#a416fd!important;-webkit-text-stroke:2px #e7f52c;font-weight:800!important}
-  .hero-title,.site-title{font-size:3.6rem;font-weight:900;color:#a416fd;-webkit-text-stroke:3px yellow;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,2px 2px 8px rgba(0,0,0,0.5);margin:0;text-align:center;white-space:nowrap;position:relative;left:20px}
+  .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,0.5);min-height:80px;height:80px}
+  .header .container-fluid{min-height:80px;height:80px}
+  .logo-img{height:100px!important;max-height:100px!important;width:100px!important;margin-left:10px}
+  .sitename{font-size:2.5rem!important;color:#a416fd!important;-webkit-text-stroke:2px #e7f52c;font-weight:800!important;min-width:80px}
+  .hero-title,.site-title{font-size:3.6rem;font-weight:900;color:#a416fd;-webkit-text-stroke:3px yellow;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,2px 2px 8px rgba(0,0,0,0.5);margin:0;text-align:center;white-space:nowrap;position:relative;left:20px;min-height:60px}
+  .container{contain:layout style}
 </style>
 
 <!-- Fonts - optimized with display=swap and limited weights -->
@@ -39,7 +41,7 @@
 <link href="assets/css/main.css" rel="stylesheet" media="print" onload="this.media='all'"/>
 <link href="assets/css/custom.css" rel="stylesheet" media="print" onload="this.media='all'"/>
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="print" onload="this.media='all'"/>
-<link href="assets/css/icons-minimal.css" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" media="print" onload="this.media='all'"/>
 <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'"/>
 
 <!-- Fallback for browsers without JavaScript -->
@@ -47,7 +49,7 @@
   <link href="assets/css/main.css" rel="stylesheet"/>
   <link href="assets/css/custom.css" rel="stylesheet"/>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="assets/css/icons-minimal.css" rel="stylesheet"/>
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
   <link href="assets/vendor/aos/aos.css" rel="stylesheet"/>
 </noscript>
 <script type="application/ld+json">{

@@ -12,14 +12,23 @@
   /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
+  let scrollTicking = false;
   function toggleScrolled() {
     const selectBody = document.querySelector('body');
     const selectHeader = document.querySelector('#header');
     if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
+    scrollTicking = false;
   }
 
-  document.addEventListener('scroll', toggleScrolled);
+  function requestToggleScrolled() {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(toggleScrolled);
+      scrollTicking = true;
+    }
+  }
+
+  document.addEventListener('scroll', requestToggleScrolled, { passive: true });
   window.addEventListener('load', toggleScrolled);
 
   /**
@@ -74,22 +83,34 @@
    * Scroll top button
    */
   let scrollTop = document.querySelector('.scroll-top');
+  let scrollTopTicking = false;
 
   function toggleScrollTop() {
     if (scrollTop) {
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
+    scrollTopTicking = false;
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+
+  function requestToggleScrollTop() {
+    if (!scrollTopTicking) {
+      window.requestAnimationFrame(toggleScrollTop);
+      scrollTopTicking = true;
+    }
+  }
+
+  if (scrollTop) {
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-  });
+  }
 
   window.addEventListener('load', toggleScrollTop);
-  document.addEventListener('scroll', toggleScrollTop);
+  document.addEventListener('scroll', requestToggleScrollTop, { passive: true });
 
   /**
    * Animation on scroll function and init
