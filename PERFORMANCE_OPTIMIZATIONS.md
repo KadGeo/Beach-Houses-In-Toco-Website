@@ -5,6 +5,32 @@ This document outlines all performance optimizations applied to reach 95+ PageSp
 
 ## Optimizations Applied
 
+### 0. CSS Render-Blocking Optimization ⚡ NEW
+**Problem**: AOS and Flatpickr CSS blocking initial render (1,630ms delay)
+**Solution**: Load non-critical CSS asynchronously using media attribute trick
+
+#### Files Modified:
+- `index.html` (lines 26, 29)
+- `blog.html` (line 22)
+
+**Changes:**
+```html
+<!-- Before -->
+<link href="assets/vendor/aos/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<!-- After -->
+<link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" media="print" onload="this.media='all'">
+```
+
+**Impact**:
+- Eliminates ~1,630ms of render-blocking time
+- Critical CSS loads immediately, animations load asynchronously
+- Significantly improves First Contentful Paint (FCP)
+
+---
+
 ### 1. JavaScript Optimization
 **Problem**: Render-blocking JavaScript slowing initial page load
 **Solution**: Added `defer` attribute to all JavaScript files
@@ -148,9 +174,63 @@ window.addEventListener('scroll', highlightNav, { passive: true });
 
 ---
 
+## Server-Side Optimizations ⚡ NEW
+
+### .htaccess File Created
+A comprehensive `.htaccess` file has been created with all necessary optimizations:
+
+**Location**: `.htaccess` (root directory)
+
+**Included Features**:
+1. ✅ Gzip compression for all text files (70-80% size reduction)
+2. ✅ Brotli compression support (even better than Gzip)
+3. ✅ Browser caching headers for all file types
+4. ✅ Security headers
+5. ✅ MIME type definitions
+6. ✅ UTF-8 encoding
+
+**To Deploy**:
+1. Upload `.htaccess` to your website root directory
+2. Ensure mod_deflate and mod_expires are enabled on your server
+3. Test compression at: https://www.giftofspeed.com/gzip-test/
+
+**Expected Impact**:
+- JavaScript files: ~23 KB → ~8 KB
+- CSS files: ~50 KB → ~15 KB
+- HTML files: ~50 KB → ~12 KB
+- **Total savings**: ~70-80% on text files
+
+---
+
+## Image Optimizations Required 🔴 CRITICAL
+
+### IMAGE_OPTIMIZATION_GUIDE.md Created
+A detailed guide has been created for optimizing images:
+
+**Location**: `IMAGE_OPTIMIZATION_GUIDE.md`
+
+**Critical Issues**:
+
+1. **Background Image** (704 KB):
+   - Convert to WebP format
+   - Expected savings: 448 KB (64% reduction)
+   - Priority: HIGHEST
+
+2. **Logo Image** (65 KB displayed as 50x50px):
+   - Create 3 responsive sizes (50px, 100px, 200px)
+   - Convert to WebP
+   - Expected savings: 60 KB (92% reduction)
+   - Priority: HIGH
+
+**Total Image Savings**: ~529 KB (69% reduction)
+
+**Action Required**: Follow `IMAGE_OPTIMIZATION_GUIDE.md` step-by-step
+
+---
+
 ## Additional Server-Side Recommendations
 
-### 1. Enable Gzip/Brotli Compression
+### 1. Enable Gzip/Brotli Compression (✅ DONE - See .htaccess)
 Add to your `.htaccess` file (Apache) or server config:
 
 ```apache

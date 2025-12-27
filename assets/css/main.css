@@ -69,7 +69,7 @@ body {
   color: var(--default-color);
   background-color: var(--background-color);
   font-family: var(--default-font);
-  background: url("../img/Beach houses in Toco Logo Background Image.png") center 35% no-repeat;
+  background: url("../img/Beach houses in Toco Logo Background Image.webp") center 35% no-repeat;
   background-size: cover;
   position: relative;
 }
