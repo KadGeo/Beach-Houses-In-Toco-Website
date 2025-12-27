@@ -419,10 +419,31 @@ html {
   }
 }
 
+/* Tablet sizes - between mobile and desktop */
+@media (min-width: 769px) and (max-width: 1199px) {
+  /* Header adjustments for tablet sizes */
+  .header {
+    min-height: 70px;
+  }
+
+  .hero-title,
+  .site-title {
+    font-size: clamp(1.1rem, 1.3rem + 2vw, 3.6rem) !important;
+    -webkit-text-stroke: 0.7px yellow;
+  }
+
+  .logo-img {
+    height: clamp(50px, 5vw + 30px, 100px) !important;
+    max-height: clamp(50px, 5vw + 30px, 100px) !important;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .sitename {
     font-size: 1.2rem !important;
+    -webkit-text-stroke: yellow 0.9px !important;
+
   }
 
   .logo-img {
@@ -438,6 +459,7 @@ html {
     left: 52%;
     transform: translateX(-40%);
     white-space: nowrap;
+    -webkit-text-stroke: 0.7px yellow
   }
 
   .site-logo {
@@ -454,7 +476,7 @@ html {
     left: 52%;
     transform: translateX(-40%);
     white-space: nowrap;
-    -webkit-text-stroke: yellow 2px !important;
+    -webkit-text-stroke: yellow 0.9px !important;
   }
 
   .description-box {
@@ -480,7 +502,7 @@ html {
   }
 
   .booking-title {
-    font-size: 1.4rem;
+    font-size: 3rem;
   }
 
   .social-media-widget {
