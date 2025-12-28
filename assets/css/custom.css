@@ -19,7 +19,17 @@
   .navmenu li:nth-child(5) a {
     padding-top: 0;
   }
+  
 }
+body.blog-page p {
+    
+    font-weight: 1000;
+  }
+
+  body.blog-page li {
+    
+    font-weight: 700;
+  }
 
 /* Logo Image Styling */
 .logo-img {
@@ -510,8 +520,13 @@ html {
 
   /* Blog page paragraph styling */
   body.blog-page p {
-    font-size: 4rem;
+    
     font-weight: 1000;
+  }
+
+  body.blog-page li {
+    
+    font-weight: 700;
   }
 
   .oval-button {
