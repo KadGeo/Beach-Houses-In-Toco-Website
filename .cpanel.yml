@@ -1,11 +1,32 @@
 ---
+###############################################################################
+# cPanel Git Deployment Configuration for Beach Houses in Toco
+#
+# This file tells cPanel how to deploy your repository when you click
+# "Update from Remote" in cPanel's Git Version Control interface.
+#
+# IMPORTANT: Replace 'trinorui' with your actual cPanel username
+#
+# Documentation: https://docs.cpanel.net/knowledge-base/web-services/guide-to-git-deployment/
+###############################################################################
+
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/trinorui/public_html/Beach-Houses-In-Toco-Website/
-    - /bin/cp index.html $DEPLOYPATH
-    - /bin/cp blog.html $DEPLOYPATH
-    - /bin/cp robots.txt $DEPLOYPATH
-    - /bin/cp sitemap.xml $DEPLOYPATH
-    - /bin/cp .htaccess $DEPLOYPATH
-    - /bin/cp -R assets $DEPLOYPATH
-    - /bin/cp -R forms $DEPLOYPATH
+    # Set the deployment path (UPDATE 'trinorui' to your cPanel username)
+    - export DEPLOYPATH=/home/trinorui/public_html/
+
+    # Copy all files from repository to public_html
+    - /bin/cp -R * $DEPLOYPATH
+
+    # Copy hidden files (like .htaccess, .gitignore) - ignore errors if none exist
+    - /bin/cp -R .[^.]* $DEPLOYPATH 2>/dev/null || true
+
+    # Set proper file permissions
+    - /bin/chmod 644 $DEPLOYPATH/*.html 2>/dev/null || true
+    - /bin/chmod 644 $DEPLOYPATH/*.php 2>/dev/null || true
+    - /bin/chmod 644 $DEPLOYPATH/.htaccess 2>/dev/null || true
+    - /bin/chmod 755 $DEPLOYPATH/assets 2>/dev/null || true
+    - /bin/chmod 755 $DEPLOYPATH/forms 2>/dev/null || true
+
+    # Log deployment
+    - echo "Deployment completed at $(date)" >> $DEPLOYPATH/deployment.log
