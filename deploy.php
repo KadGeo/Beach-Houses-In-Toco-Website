@@ -13,8 +13,8 @@
  */
 
 // ==================== CONFIGURATION ====================
-// UPDATE THIS with your actual GitHub repository URL
-define('REMOTE_REPOSITORY', 'https://github.com/yourusername/toco-beach-houses.git');
+// GitHub repository URL
+define('REMOTE_REPOSITORY', 'https://github.com/KadGeo/Beach-Houses-In-Toco-Website.git');
 
 // Secret key for webhook validation (use this in GitHub webhook settings)
 define('SECRET_KEY', '7f9a3e2d8c1b6f4a5e9d7c3b2a1f8e6d4c9b7a5f3e1d9c7b5a3f1e9d7c5b3a1f');
