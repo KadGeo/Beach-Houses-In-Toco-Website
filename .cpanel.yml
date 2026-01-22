@@ -12,8 +12,8 @@
 
 deployment:
   tasks:
-    # Set the deployment path (UPDATE 'trinorui' to your cPanel username)
-    - export DEPLOYPATH=/home/trinorui/public_html/
+    # Set the deployment path to the website subdirectory
+    - export DEPLOYPATH=/home/trinorui/public_html/Beach-Houses-In-Toco-Website/
 
     # Copy all files from repository to public_html
     - /bin/cp -R * $DEPLOYPATH
