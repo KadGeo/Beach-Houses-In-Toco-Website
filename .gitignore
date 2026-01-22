@@ -1,0 +1,66 @@
+# Deployment logs
+deployment.log
+
+# Environment configuration files
+.env
+.env.local
+.env.production
+config.php
+
+# Database credentials
+db_config.php
+database.ini
+
+# Sensitive files
+*.key
+*.pem
+*.p12
+secrets/
+
+# Composer dependencies (if using PHP packages)
+vendor/
+
+# Node modules (if using npm/yarn)
+node_modules/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# User uploads (if you have an upload directory)
+uploads/
+user_uploads/
+
+# cPanel specific files
+.cpanel/
+.htpasswds
+.ftpquota
+
+# Git files
+.git/
+.gitattributes
+
+# n8n workflow backups (future)
+n8n_backups/
+workflows/
+
+# Google Sheets cache (future OTA system)
+sheets_cache/
+
+# Payment gateway keys (future)
+stripe_keys.php
+paypal_config.php
