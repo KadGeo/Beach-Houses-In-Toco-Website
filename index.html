@@ -490,12 +490,7 @@
         });
 
 
-        // Display booking summary (temporary - remove when webhook is active)
-        alert(`Booking Request Summary:\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\nDestination: Toco\n\nUTM Source: ${utmParams.utm_source}\nUTM Medium: ${utmParams.utm_medium}\nUTM Campaign: ${utmParams.utm_campaign}\n\nThank you! We'll check availability and contact you shortly.`);
-
-        // Reset form
-        this.reset();
-      });
+        
 
       // Smooth scroll and active nav highlighting
       const sections = document.querySelectorAll('section[id]');
