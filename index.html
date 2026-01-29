@@ -492,7 +492,7 @@
               // Don't reset form for duplicates - user might want to modify and resubmit
             } else {
               // Successful new submission
-              alert(`Booking Request Submitted Successfully!\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
+              alert(`Booking Request Submitted Successfully!\n\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
 
               // Reset form after successful submission
               this.reset();
