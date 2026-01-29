@@ -470,14 +470,15 @@
         // Log payload to console for debugging
         console.log('Booking Payload:', JSON.stringify(payload, null, 2));
 
-        // TODO: Send to n8n webhook (uncomment when ready)
-        
-        fetch('https://n8n.cewd.space/webhook-test/364c10d3-e2a4-4f28-818f-b7fd3e83c765', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload)
+        // Build query string for GET request
+        const queryParams = new URLSearchParams(payload).toString();
+        const webhookURL = `https://n8n.cewd.space/webhook-test/364c10d3-e2a4-4f28-818f-b7fd3e83c765?${queryParams}`;
+
+        console.log('Webhook URL:', webhookURL);
+
+        // Send GET request to n8n webhook
+        fetch(webhookURL, {
+          method: 'GET'
         })
         .then(response => response.json())
         .then(data => {
@@ -489,7 +490,7 @@
           console.error('Error submitting booking:', error);
           alert('There was an error submitting your booking. Please try again or contact us directly.');
         });
-        
+
 
         // Display booking summary (temporary - remove when webhook is active)
         alert(`Booking Request Summary:\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\nDestination: Toco\n\nUTM Source: ${utmParams.utm_source}\nUTM Medium: ${utmParams.utm_medium}\nUTM Campaign: ${utmParams.utm_campaign}\n\nThank you! We'll check availability and contact you shortly.`);
