@@ -337,7 +337,99 @@
         }
       });
 
-      // Handle form submission
+      // ========== UTM Parameter Capture ==========
+      function getUTMParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param) || null;
+      }
+
+      // Store UTM parameters on page load
+      const utmParams = {
+        utm_source: getUTMParam('utm_source') || 'google',
+        utm_medium: getUTMParam('utm_medium') || 'web_search',
+        utm_campaign: getUTMParam('utm_campaign') || 'toco-beach-houses'
+      };
+
+      // ========== Country Detection ==========
+      function detectCountry() {
+        // Try to detect country from browser locale
+        const locale = navigator.language || navigator.userLanguage;
+
+        // Map common locales to country codes
+        const localeToCountry = {
+          'en-US': 'US',
+          'en-GB': 'UK',
+          'en-CA': 'CA',
+          'en-TT': 'TT',
+          'fr-CA': 'CA',
+          'es-US': 'US'
+        };
+
+        // Try to detect from timezone
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (timezone && timezone.includes('America/Port_of_Spain')) {
+          return 'TT';
+        }
+
+        // Check locale mapping
+        if (localeToCountry[locale]) {
+          return localeToCountry[locale];
+        }
+
+        // Extract country from locale (e.g., 'en-US' -> 'US')
+        const parts = locale.split('-');
+        if (parts.length === 2) {
+          return parts[1].toUpperCase();
+        }
+
+        // Default to Trinidad and Tobago
+        return 'TT';
+      }
+
+      // Detect user's country on page load
+      const userCountry = detectCountry();
+      console.log('Detected country:', userCountry);
+
+      // ========== Request ID Generation ==========
+      function yymmNowUTC() {
+        const now = new Date();
+        const yy = String(now.getUTCFullYear()).slice(-2);
+        const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+        return `${yy}${mm}`;
+      }
+
+      function timestampUTC() {
+        const now = new Date();
+        const yyyy = now.getUTCFullYear();
+        const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+        const dd = String(now.getUTCDate()).padStart(2, '0');
+        const hh = String(now.getUTCHours()).padStart(2, '0');
+        const min = String(now.getUTCMinutes()).padStart(2, '0');
+        const ss = String(now.getUTCSeconds()).padStart(2, '0');
+        return `${yyyy}${mm}${dd}T${hh}${min}${ss}Z`;
+      }
+
+      function secureRandomHex(length) {
+        const array = new Uint8Array(length);
+        crypto.getRandomValues(array);
+        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      function generateRequestId(prefix = "BK") {
+        const yymm = yymmNowUTC().trim();
+        const ts = timestampUTC().trim();
+
+        let rand;
+        if (crypto.randomUUID) {
+          rand = crypto.randomUUID().replaceAll("-", "").trim();
+        } else {
+          rand = secureRandomHex(16).trim();
+        }
+
+        return `${prefix}_${yymm}_${ts}_${rand}`.trim();
+      }
+
+      // ========== Handle Form Submission ==========
       document.getElementById('bookingForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -349,13 +441,58 @@
           guests: document.getElementById('guests').value
         };
 
-        // Calculate number of nights
+        // Calculate number of days
         const checkInDate = new Date(formData.checkIn);
         const checkOutDate = new Date(formData.checkOut);
-        const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+        const Days = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
 
-        // Display booking summary
-        alert(`Booking Request Summary:\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nNights: ${nights}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
+        // Generate unique request ID
+        const request_id = generateRequestId("BK");
+
+        // Build complete payload for n8n webhook
+        const payload = {
+          request_id: request_id,
+          fullName: formData.fullName,
+          email: formData.email,
+          checkIn: formData.checkIn,
+          checkOut: formData.checkOut,
+          guests: formData.guests,
+          Days: Days,
+          country: userCountry,
+          destination_area_id: "toco",
+          property_id: "",
+          channel: "website",
+          utm_source: utmParams.utm_source,
+          utm_medium: utmParams.utm_medium,
+          utm_campaign: utmParams.utm_campaign
+        };
+
+        // Log payload to console for debugging
+        console.log('Booking Payload:', JSON.stringify(payload, null, 2));
+
+        // TODO: Send to n8n webhook (uncomment when ready)
+        /*
+        fetch('https://your-n8n-instance.com/webhook/toco-bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Booking submitted successfully:', data);
+          alert(`Booking Request Submitted!\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
+          this.reset();
+        })
+        .catch(error => {
+          console.error('Error submitting booking:', error);
+          alert('There was an error submitting your booking. Please try again or contact us directly.');
+        });
+        */
+
+        // Display booking summary (temporary - remove when webhook is active)
+        alert(`Booking Request Summary:\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\nDestination: Toco\n\nUTM Source: ${utmParams.utm_source}\nUTM Medium: ${utmParams.utm_medium}\nUTM Campaign: ${utmParams.utm_campaign}\n\nThank you! We'll check availability and contact you shortly.`);
 
         // Reset form
         this.reset();
