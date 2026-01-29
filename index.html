@@ -480,22 +480,23 @@
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Booking submitted successfully:', data);
-          alert(`Booking Request Submitted!\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
+          console.log('Webhook response:', data);
+
+          // Display alert from webhook response
+          if (data.message) {
+            alert(data.message);
+          } else {
+            alert('Booking request received successfully!');
+          }
+
+          // Reset form after successful submission
           this.reset();
         })
         .catch(error => {
           console.error('Error submitting booking:', error);
           alert('There was an error submitting your booking. Please try again or contact us directly.');
         });
-
-
-        // Display booking summary (temporary - remove when webhook is active)
-        alert(`Booking Request Summary:\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\nDestination: Toco\n\nUTM Source: ${utmParams.utm_source}\nUTM Medium: ${utmParams.utm_medium}\nUTM Campaign: ${utmParams.utm_campaign}\n\nThank you! We'll check availability and contact you shortly.`);
-
-        // Reset form
-        this.reset();
-      });
+      })
 
       // Smooth scroll and active nav highlighting
       const sections = document.querySelectorAll('section[id]');
