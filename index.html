@@ -430,7 +430,7 @@
       }
 
       // ========== Handle Form Submission ==========
-      document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      document.getElementById('bookingForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const formData = {
@@ -471,31 +471,42 @@
         console.log('Booking Payload:', JSON.stringify(payload, null, 2));
 
         // Send POST request to n8n webhook
-        fetch('https://n8n.cewd.space/webhook-test/364c10d3-e2a4-4f28-818f-b7fd3e83c765', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload)
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Webhook response:', data);
+        try {
+          const response = await fetch('https://n8n.cewd.space/webhook-test/364c10d3-e2a4-4f28-818f-b7fd3e83c765', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+          });
 
-          // Display alert from webhook response
-          if (data.message) {
-            alert(data.message);
+          if (response.ok) {
+            // Parse the response from n8n
+            const result = await response.json();
+            console.log('Webhook response:', result);
+
+            if (result.success === false && result.message === "Inquiry already exists") {
+              // Duplicate inquiry detected
+              alert(`Inquiry Already Exists!\n\nYour booking inquiry has already been submitted.\n\nRequest ID: ${result.request_id}\n\nWe'll contact you shortly regarding your original inquiry.`);
+
+              // Don't reset form for duplicates - user might want to modify and resubmit
+            } else {
+              // Successful new submission
+              alert(`Booking Request Submitted Successfully!\n\nRequest ID: ${request_id}\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
+
+              // Reset form after successful submission
+              this.reset();
+            }
           } else {
-            alert('Booking request received successfully!');
+            // HTTP error (4xx, 5xx)
+            console.error('HTTP Error:', response.status, response.statusText);
+            alert('There was an error submitting your booking. Please try again or contact us directly.');
           }
-
-          // Reset form after successful submission
-          this.reset();
-        })
-        .catch(error => {
+        } catch (error) {
+          // Network error or other exception
           console.error('Error submitting booking:', error);
           alert('There was an error submitting your booking. Please try again or contact us directly.');
-        });
+        }
       })
 
       // Smooth scroll and active nav highlighting
