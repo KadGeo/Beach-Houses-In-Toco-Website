@@ -449,6 +449,18 @@
         // Generate unique request ID
         const request_id = generateRequestId("BK");
 
+        // Get current timestamp in Trinidad and Tobago time (Atlantic Standard Time - AST)
+        const submitted_at = new Date().toLocaleString('en-US', {
+          timeZone: 'America/Port_of_Spain',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
+
         // Build complete payload for n8n webhook
         const payload = {
           request_id: request_id,
@@ -464,7 +476,8 @@
           channel: "website",
           utm_source: utmParams.utm_source,
           utm_medium: utmParams.utm_medium,
-          utm_campaign: utmParams.utm_campaign
+          utm_campaign: utmParams.utm_campaign,
+          submitted_at: submitted_at
         };
 
         // Log payload to console for debugging
