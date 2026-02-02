@@ -524,6 +524,11 @@ html {
     font-weight: 1000;
   }
 
+  /* Email font weight in footer contact section */
+  body.blog-page #footer .contact span {
+    font-weight: 100 !important;
+  }
+
   body.blog-page li {
     
     font-weight: 700;
