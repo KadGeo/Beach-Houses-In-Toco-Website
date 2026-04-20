@@ -45,6 +45,7 @@
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="print" onload="this.media='all'">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" media="print" onload="this.media='all'">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" media="print" onload="this.media='all'">
 
   <!-- Fallback for browsers without JavaScript -->
   <noscript>
@@ -53,6 +54,7 @@
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
   </noscript>
 </head>
 
@@ -180,13 +182,13 @@
                   <i class="bi bi-person"></i>
                 </div>
               </div>
-              
+
               <div class="col-md-8">
                 <div class="row g-0">
                   <div class="col-6">
                     <label for="phone-contact" class="form-label">Contact#</label>
                     <input type="tel" class="form-control rounded-end-0" id="ep-phone" name="phoneContact"
-                           placeholder="<5 MINS Response!! 🕒">
+                           placeholder="&lt;5 MINS Response!! 🕒">
                   </div>
                   <div class="col-6">
                     <label for="email" class="form-label">Email:</label>
@@ -202,16 +204,16 @@
               <div class="col-md-4 mb-3 mb-md-0">
                 <label for="checkIn" class="form-label">Check-in:</label>
                 <div style="position: relative;">
-                  <input type="text" class="form-control" id="checkIn" name="checkIn" 
+                  <input type="text" class="form-control" id="checkIn" name="checkIn"
                          placeholder="Select date" required readonly>
                   <i class="bi bi-calendar" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #667eea; pointer-events: none;"></i>
                 </div>
               </div>
-              
+
               <div class="col-md-4 mb-3 mb-md-0">
                 <label for="checkOut" class="form-label">Check-out:</label>
                 <div style="position: relative;">
-                  <input type="text" class="form-control" id="checkOut" name="checkOut" 
+                  <input type="text" class="form-control" id="checkOut" name="checkOut"
                          placeholder="Select date" required readonly>
                   <i class="bi bi-calendar" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #667eea; pointer-events: none;"></i>
                 </div>
@@ -246,6 +248,64 @@
 
       </div>
     </section>
+
+  <!-- Booking Result Modal -->
+  <div id="booking-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;">
+    <div id="booking-modal-box">
+      <p id="booking-modal-msg"></p>
+      <button id="booking-modal-close">Close</button>
+    </div>
+  </div>
+
+  <!-- More Options Prompt Modal -->
+  <div id="more-options-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;">
+    <div id="more-options-box">
+      <p id="more-options-msg">Would you like more options?</p>
+      <div id="more-options-buttons">
+        <button id="more-options-yes">Yes</button>
+        <button id="more-options-no">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Extra Booking Pull Panel -->
+  <div id="extra-panel">
+    <button id="extra-panel-tab" aria-label="Additional booking options">Click Here</button>
+    <div id="extra-panel-label" aria-label="Open additional booking options">Want More?</div>
+    <div id="extra-panel-body">
+      <h5>Tell Us What You Want</h5>
+
+      <div class="extra-field">
+        <label for="ep-budget">Budget (TTD)</label>
+        <div class="input-group">
+          <span class="input-group-text">$</span>
+          <input type="number" id="ep-budget" class="form-control" placeholder="e.g. 2000">
+        </div>
+      </div>
+
+      <div class="extra-group" id="ep-amenities">
+        <h6>Amenities</h6>
+        <label><input type="checkbox" value="pool"> Pool</label>
+        <label><input type="checkbox" value="ac"> Air Condition</label>
+        <label><input type="checkbox" value="scenic"> Scenic View</label>
+        <label><input type="checkbox" value="pet"> Pet Friendly House</label>
+      </div>
+
+      <div class="extra-group" id="ep-services">
+        <h6>Services</h6>
+        <label><input type="checkbox" value="photo"> Photography</label>
+        <label><input type="checkbox" value="video"> Videography</label>
+        <label><input type="checkbox" value="tour"> Tour Guides</label>
+        <label><input type="checkbox" value="events"> Event Planning</label>
+        <label><input type="checkbox" value="music"> Music and Entertainment</label>
+      </div>
+
+      <div class="extra-field">
+        <label for="ep-special">Special Request</label>
+        <textarea id="ep-special" rows="4" placeholder="If we're missing any events, services, or amenities that you might be interested in please let us know here"></textarea>
+      </div>
+    </div>
+  </div>
 
   </main>
 
@@ -323,242 +383,299 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files - Async for non-blocking parallel load -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" async></script>
-  <script src="assets/vendor/php-email-form/validate.js" async></script>
-  <script src="assets/vendor/aos/aos.js" async></script>
+  <!-- Vendor JS Files - Deferred for performance -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/vendor/php-email-form/validate.js" defer></script>
+  <script src="assets/vendor/aos/aos.js" defer></script>
 
-  <!-- Main JS File - Async -->
-  <script src="assets/js/main.js" async></script>
+  <!-- Flatpickr JS - Deferred -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
 
-  <!-- Custom Booking Script - Runs after page load -->
+  <!-- Main JS File - Deferred -->
+  <script src="assets/js/main.js" defer></script>
+
+  <!-- Booking Configuration Data -->
+  <script>
+    window.bookingConfig = {
+      "country": "TT",
+      "destination_area_id": "toco",
+      "property_id": "",
+      "channel": "website",
+      "status": "needs_quote",
+      "utm_source": "google",
+      "utm_medium": "cpc",
+      "utm_campaign": "toco-beach-houses"
+    };
+
+    // Capture actual UTM params from URL if present
+    (function() {
+      const p = new URLSearchParams(window.location.search);
+      ['utm_source','utm_medium','utm_campaign'].forEach(function(k) {
+        if (p.get(k)) window.bookingConfig[k] = p.get(k);
+      });
+    })();
+
+    // Detect country from timezone/locale, cache for 24h
+    function detectCountry() {
+      const CACHE_KEY = 'tbh_country';
+      const CACHE_TTL = 86400000;
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { code, ts } = JSON.parse(cached);
+          if (Date.now() - ts < CACHE_TTL) { window.bookingConfig.country = code; return; }
+        }
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz && tz.includes('America/Port_of_Spain')) { window.bookingConfig.country = 'TT'; }
+        else {
+          const locale = navigator.language || '';
+          const parts = locale.split('-');
+          if (parts.length === 2) window.bookingConfig.country = parts[1].toUpperCase();
+        }
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ code: window.bookingConfig.country, ts: Date.now() }));
+      } catch(e) {}
+    }
+    window.addEventListener('load', detectCountry);
+  </script>
+
+  <!-- Request ID Generator for Idempotent Bookings -->
+  <script>
+    const REQUEST_ID_STORAGE_KEY = "booking_request_id_v1";
+    const REQUEST_ID_CREATED_AT_KEY = "booking_request_id_created_at_v1";
+    const REQUEST_ID_TTL_MINUTES = 30;
+
+    function pad2(n) { return String(n).padStart(2, "0"); }
+
+    function yymmNowUTC() {
+      const d = new Date();
+      return String(d.getUTCFullYear()).slice(-2) + pad2(d.getUTCMonth() + 1);
+    }
+
+    function timestampUTC() {
+      const d = new Date();
+      return `${d.getUTCFullYear()}${pad2(d.getUTCMonth()+1)}${pad2(d.getUTCDate())}T${pad2(d.getUTCHours())}${pad2(d.getUTCMinutes())}${pad2(d.getUTCSeconds())}Z`;
+    }
+
+    function secureRandomHex(bytes = 16) {
+      const arr = new Uint8Array(bytes);
+      crypto.getRandomValues(arr);
+      return Array.from(arr, b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function generateRequestId(prefix = "BK") {
+      const rand = crypto.randomUUID ? crypto.randomUUID().replaceAll("-","").trim() : secureRandomHex(16);
+      return `${prefix}_${yymmNowUTC()}_${timestampUTC()}_${rand}`.trim();
+    }
+
+    function getOrCreateRequestId() {
+      const existing = localStorage.getItem(REQUEST_ID_STORAGE_KEY);
+      const createdAt = Number(localStorage.getItem(REQUEST_ID_CREATED_AT_KEY) || 0);
+      if (existing && createdAt && (Date.now() - createdAt) < REQUEST_ID_TTL_MINUTES * 60000) return existing;
+      const fresh = generateRequestId("BK");
+      localStorage.setItem(REQUEST_ID_STORAGE_KEY, fresh);
+      localStorage.setItem(REQUEST_ID_CREATED_AT_KEY, String(Date.now()));
+      return fresh;
+    }
+
+    function clearRequestId() {
+      localStorage.removeItem(REQUEST_ID_STORAGE_KEY);
+      localStorage.removeItem(REQUEST_ID_CREATED_AT_KEY);
+    }
+
+    window.getOrCreateRequestId = getOrCreateRequestId;
+    window.clearRequestId = clearRequestId;
+  </script>
+
+  <!-- Custom Booking Script - Must run after Flatpickr loads -->
   <script>
     window.addEventListener('load', function() {
-      // Initialize native HTML5 date inputs
-      const today = new Date().toISOString().split('T')[0];
-      const checkInInput = document.getElementById('checkIn');
-      const checkOutInput = document.getElementById('checkOut');
 
-      checkInInput.setAttribute('min', today);
+      // Initialize Flatpickr date pickers
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
-      // Update check-out min date when check-in changes
-      checkInInput.addEventListener('change', function() {
-        const checkInDate = new Date(this.value);
-        const minCheckOut = new Date(checkInDate);
-        minCheckOut.setDate(minCheckOut.getDate() + 1);
-        const minCheckOutStr = minCheckOut.toISOString().split('T')[0];
-
-        checkOutInput.setAttribute('min', minCheckOutStr);
-
-        // Clear check-out if it's before the new minimum
-        if (checkOutInput.value && checkOutInput.value <= this.value) {
-          checkOutInput.value = '';
+      const checkInPicker = flatpickr("#checkIn", {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates) {
+          if (selectedDates.length > 0) {
+            const minOut = new Date(selectedDates[0]);
+            minOut.setDate(minOut.getDate() + 1);
+            checkOutPicker.set('minDate', minOut);
+            if (checkOutPicker.selectedDates[0] && checkOutPicker.selectedDates[0] <= selectedDates[0]) {
+              checkOutPicker.clear();
+            }
+          }
         }
       });
 
-      // ========== UTM Parameter Capture ==========
-      function getUTMParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param) || null;
+      const checkOutPicker = flatpickr("#checkOut", {
+        minDate: tomorrow,
+        dateFormat: "Y-m-d"
+      });
+
+      // Booking result modal
+      function showBookingModal(msg) {
+        document.getElementById('booking-modal-msg').innerText = msg;
+        document.getElementById('booking-modal').style.display = 'flex';
       }
+      document.getElementById('booking-modal-close').addEventListener('click', function() {
+        document.getElementById('booking-modal').style.display = 'none';
+      });
 
-      // Store UTM parameters on page load
-      const utmParams = {
-        utm_source: getUTMParam('utm_source') || 'google',
-        utm_medium: getUTMParam('utm_medium') || 'web_search',
-        utm_campaign: getUTMParam('utm_campaign') || 'toco-beach-houses'
-      };
-
-      // ========== Country Detection ==========
-      function detectCountry() {
-        // Try to detect country from browser locale
-        const locale = navigator.language || navigator.userLanguage;
-
-        // Map common locales to country codes
-        const localeToCountry = {
-          'en-US': 'US',
-          'en-GB': 'UK',
-          'en-CA': 'CA',
-          'en-TT': 'TT',
-          'fr-CA': 'CA',
-          'es-US': 'US'
-        };
-
-        // Try to detect from timezone
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        if (timezone && timezone.includes('America/Port_of_Spain')) {
-          return 'TT';
-        }
-
-        // Check locale mapping
-        if (localeToCountry[locale]) {
-          return localeToCountry[locale];
-        }
-
-        // Extract country from locale (e.g., 'en-US' -> 'US')
-        const parts = locale.split('-');
-        if (parts.length === 2) {
-          return parts[1].toUpperCase();
-        }
-
-        // Default to Trinidad and Tobago
-        return 'TT';
-      }
-
-      // Detect user's country on page load
-      const userCountry = detectCountry();
-      console.log('Detected country:', userCountry);
-
-      // ========== Request ID Generation ==========
-      function yymmNowUTC() {
-        const now = new Date();
-        const yy = String(now.getUTCFullYear()).slice(-2);
-        const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
-        return `${yy}${mm}`;
-      }
-
-      function timestampUTC() {
-        const now = new Date();
-        const yyyy = now.getUTCFullYear();
-        const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
-        const dd = String(now.getUTCDate()).padStart(2, '0');
-        const hh = String(now.getUTCHours()).padStart(2, '0');
-        const min = String(now.getUTCMinutes()).padStart(2, '0');
-        const ss = String(now.getUTCSeconds()).padStart(2, '0');
-        return `${yyyy}${mm}${dd}T${hh}${min}${ss}Z`;
-      }
-
-      function secureRandomHex(length) {
-        const array = new Uint8Array(length);
-        crypto.getRandomValues(array);
-        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
-      }
-
-      function generateRequestId(prefix = "BK") {
-        const yymm = yymmNowUTC().trim();
-        const ts = timestampUTC().trim();
-
-        let rand;
-        if (crypto.randomUUID) {
-          rand = crypto.randomUUID().replaceAll("-", "").trim();
-        } else {
-          rand = secureRandomHex(16).trim();
-        }
-
-        return `${prefix}_${yymm}_${ts}_${rand}`.trim();
-      }
-
-      // ========== Handle Form Submission ==========
+      // Handle form submission
       document.getElementById('bookingForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+        const form = this;
 
+        // Require at least one contact field
+        const phoneVal = document.getElementById('ep-phone').value.trim();
+        const emailVal = document.getElementById('email').value.trim();
+        if (!phoneVal && !emailVal) {
+          showBookingModal('You must at least enter your contact or your email to proceed with your booking.');
+          return;
+        }
+
+        // If extra panel already open, skip the "more options?" prompt
+        if (document.getElementById('extra-panel').classList.contains('open')) {
+          submitBookingForm(form);
+          return;
+        }
+
+        // Show "more options?" prompt
+        const modal = document.getElementById('more-options-modal');
+        modal.style.display = 'flex';
+
+        document.getElementById('more-options-yes').onclick = function() {
+          modal.style.display = 'none';
+          const panel = document.getElementById('extra-panel');
+          panel.classList.add('panel-visible');
+          panel.classList.add('open');
+        };
+
+        document.getElementById('more-options-no').onclick = function() {
+          modal.style.display = 'none';
+          submitBookingForm(form);
+        };
+      });
+
+      async function submitBookingForm(form) {
         const formData = {
           fullName: document.getElementById('fullName').value,
           email: document.getElementById('email').value,
-          checkIn: checkInInput.value,
-          checkOut: checkOutInput.value,
-          guests: document.getElementById('guests').value
+          checkIn: document.getElementById('checkIn').value,
+          checkOut: document.getElementById('checkOut').value,
+          guests: document.getElementById('guests').value,
+          phone: document.getElementById('ep-phone').value || '',
+          budget: document.getElementById('ep-budget').value || '',
+          amenities: Array.from(document.querySelectorAll('#ep-amenities input[type="checkbox"]:checked')).map(cb => cb.value),
+          services: Array.from(document.querySelectorAll('#ep-services input[type="checkbox"]:checked')).map(cb => cb.value),
+          specialRequest: document.getElementById('ep-special').value || ''
         };
 
-        // Calculate number of days
         const checkInDate = new Date(formData.checkIn);
         const checkOutDate = new Date(formData.checkOut);
-        const Days = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+        formData.Days = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
 
-        // Generate unique request ID
-        const request_id = generateRequestId("BK");
-
-        // Get current timestamp in Trinidad and Tobago time (Atlantic Standard Time - AST)
-        const submitted_at = new Date().toLocaleString('en-US', {
+        formData.submitted_at = new Date().toLocaleString('en-US', {
           timeZone: 'America/Port_of_Spain',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false
+          year: 'numeric', month: '2-digit', day: '2-digit',
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
         });
 
-        // Build complete payload for n8n webhook
-        const payload = {
-          request_id: request_id,
-          fullName: formData.fullName,
-          email: formData.email,
-          checkIn: formData.checkIn,
-          checkOut: formData.checkOut,
-          guests: formData.guests,
-          Days: Days,
-          country: userCountry,
-          destination_area_id: "toco",
-          property_id: "",
-          channel: "website",
-          status: "needs_quote",
-          utm_source: utmParams.utm_source,
-          utm_medium: utmParams.utm_medium,
-          utm_campaign: utmParams.utm_campaign,
-          submitted_at: submitted_at
-        };
+        const requestId = window.getOrCreateRequestId().trim();
+        const bookingPayload = { request_id: requestId, ...formData, ...window.bookingConfig };
 
-        // Log payload to console for debugging
-        console.log('Booking Payload:', JSON.stringify(payload, null, 2));
+        console.log('Booking Payload:', bookingPayload);
 
-        // Send POST request to n8n webhook
         try {
           const response = await fetch('https://n8n.cewd.space/webhook/e92c47ab-0e7d-4907-a2af-f337e02f900a', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingPayload)
           });
 
           if (response.ok) {
-            // Parse the response from n8n
             const result = await response.json();
-            console.log('Webhook response:', result);
 
             if (result.success === false && result.message === "Inquiry already exists") {
-              // Duplicate inquiry detected
-              alert(`Inquiry Already Exists!\n\nYour booking inquiry has already been submitted.\n\nRequest ID: ${result.request_id}\n\nWe'll contact you shortly regarding your original inquiry.`);
-
-              // Don't reset form for duplicates - user might want to modify and resubmit
+              showBookingModal(`Inquiry Already Exists!\n\nYour booking inquiry has already been submitted.\n\nRequest ID: ${result.request_id}\n\nWe'll contact you shortly regarding your original inquiry.`);
             } else {
-              // Successful new submission
-              alert(`Booking Request Submitted Successfully!\n\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank for choosing us! Someone at Luxegetawaystt will check availability and be in contact with you shortly.`);
-             // Reset form after successful submission
-              this.reset();
+              window.clearRequestId();
+              showBookingModal(`Booking Request Submitted Successfully!\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${formData.Days}\nGuests: ${formData.guests}\n\nThank you for choosing us! Someone at Luxegetawaystt will check availability and be in contact with you shortly.`);
+              form.reset();
+              checkInPicker.clear();
+              checkOutPicker.clear();
             }
           } else {
-            // HTTP error (4xx, 5xx)
-            console.error('HTTP Error:', response.status, response.statusText);
-            alert('There was an error submitting your booking. Please try again or contact us directly.');
+            throw new Error('HTTP ' + response.status);
           }
         } catch (error) {
-          // Network error or other exception
           console.error('Error submitting booking:', error);
-          alert('There was an error submitting your booking. Please try again or contact us directly.');
+          alert('There was an error submitting your booking request. Please try again or contact us directly.');
         }
-      })
+      }
 
-      // Smooth scroll and active nav highlighting
+      // Extra panel toggle
+      document.getElementById('extra-panel-tab').addEventListener('click', function() {
+        document.getElementById('extra-panel').classList.toggle('open');
+      });
+      document.getElementById('extra-panel-label').addEventListener('click', function() {
+        document.getElementById('extra-panel').classList.toggle('open');
+      });
+
+      // Show extra panel when user is in booking section and all fields are filled
+      const extraPanel = document.getElementById('extra-panel');
+      const bookingFields = ['fullName', 'checkIn', 'checkOut', 'guests'];
+      let inBookingSection = false;
+
+      function allFieldsFilled() {
+        const required = bookingFields.every(id => {
+          const el = document.getElementById(id);
+          return el && el.value.trim() !== '';
+        });
+        const contact = document.getElementById('ep-phone').value.trim() !== ''
+                     || document.getElementById('email').value.trim() !== '';
+        return required && contact;
+      }
+
+      function updatePanelVisibility() {
+        if (inBookingSection && allFieldsFilled()) {
+          extraPanel.classList.add('panel-visible');
+        } else {
+          extraPanel.classList.remove('panel-visible');
+          extraPanel.classList.remove('open');
+        }
+      }
+
+      const bookingObserver = new IntersectionObserver(function(entries) {
+        inBookingSection = entries[0].isIntersecting;
+        updatePanelVisibility();
+      }, { threshold: 0.1 });
+      bookingObserver.observe(document.getElementById('booking'));
+
+      bookingFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updatePanelVisibility);
+      });
+      document.getElementById('ep-phone').addEventListener('input', updatePanelVisibility);
+      document.getElementById('email').addEventListener('input', updatePanelVisibility);
+
+      // Active nav highlighting
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.navmenu a');
 
       function highlightNav() {
         let scrollY = window.pageYOffset;
-
         sections.forEach(section => {
           const sectionHeight = section.offsetHeight;
           const sectionTop = section.offsetTop - 100;
           const sectionId = section.getAttribute('id');
-
           if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
             navLinks.forEach(link => {
               link.classList.remove('active');
-              if (link.getAttribute('href') === `#${sectionId}`) {
-                link.classList.add('active');
-              }
+              if (link.getAttribute('href') === `#${sectionId}`) link.classList.add('active');
             });
           }
         });
