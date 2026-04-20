@@ -172,7 +172,7 @@
           <form id="bookingForm">
             <!-- Contact Information Row -->
             <div class="row mb-4">
-              <div class="col-md-6 mb-3 mb-md-0">
+              <div class="col-md-4 mb-3 mb-md-0">
                 <label for="fullName" class="form-label">Full Name:</label>
                 <div class="input-group-icon">
                   <input type="text" class="form-control" id="fullName" name="fullName"
@@ -181,12 +181,18 @@
                 </div>
               </div>
               
-              <div class="col-md-6">
-                <label for="email" class="form-label">Email:</label>
-                <div class="input-group-icon">
-                  <input type="email" class="form-control" id="email" name="email" 
-                         placeholder="your.email@example.com" required>
-                  <i class="bi bi-envelope"></i>
+              <div class="col-md-8">
+                <div class="row g-0">
+                  <div class="col-6">
+                    <label for="phone-contact" class="form-label">Contact#</label>
+                    <input type="tel" class="form-control rounded-end-0" id="ep-phone" name="phoneContact"
+                           placeholder="<5 MINS Response!! 🕒">
+                  </div>
+                  <div class="col-6">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control rounded-start-0" id="email" name="email"
+                           placeholder="jsmith@email.com">
+                  </div>
                 </div>
               </div>
             </div>
@@ -195,12 +201,20 @@
             <div class="row mb-4">
               <div class="col-md-4 mb-3 mb-md-0">
                 <label for="checkIn" class="form-label">Check-in:</label>
-                <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+                <div style="position: relative;">
+                  <input type="text" class="form-control" id="checkIn" name="checkIn" 
+                         placeholder="Select date" required readonly>
+                  <i class="bi bi-calendar" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #667eea; pointer-events: none;"></i>
+                </div>
               </div>
-
+              
               <div class="col-md-4 mb-3 mb-md-0">
                 <label for="checkOut" class="form-label">Check-out:</label>
-                <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+                <div style="position: relative;">
+                  <input type="text" class="form-control" id="checkOut" name="checkOut" 
+                         placeholder="Select date" required readonly>
+                  <i class="bi bi-calendar" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #667eea; pointer-events: none;"></i>
+                </div>
               </div>
               
               <div class="col-md-4">
@@ -511,9 +525,8 @@
               // Don't reset form for duplicates - user might want to modify and resubmit
             } else {
               // Successful new submission
-              alert(`Booking Request Submitted Successfully!\n\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank you! We'll check availability and contact you shortly.`);
-
-              // Reset form after successful submission
+              alert(`Booking Request Submitted Successfully!\n\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nCheck-in: ${formData.checkIn}\nCheck-out: ${formData.checkOut}\nDays: ${Days}\nGuests: ${formData.guests}\n\nThank for choosing us! Someone at Luxegetawaystt will check availability and be in contact with you shortly.`);
+             // Reset form after successful submission
               this.reset();
             }
           } else {
