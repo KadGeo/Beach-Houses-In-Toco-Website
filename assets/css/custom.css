@@ -309,7 +309,7 @@ body.scrolled .site-title {
   border: none;
   border-radius: 10px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 800;
   transition: all 0.3s ease;
   box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
   margin-top: 1.5rem;
@@ -604,22 +604,23 @@ body::before {
 
 /* Booking Result Modal */
 #booking-modal-box {
-  background: rgba(0, 0, 0, 0.92);
+  background: rgb(0, 0, 0);
   border-radius: 12px;
   padding: 1.5rem 2rem;
   width: 90%;
   max-width: 420px;
-  color: #c568ff;
+  color: #e7f52c;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  border: 2px solid #a416fd;
+  border: 3px solid #a416fd;
 }
 
 #booking-modal-msg {
   white-space: pre-line;
   font-size: 0.95rem;
+  font-weight: 600;
   line-height: 1.6;
   margin-bottom: 1.2rem;
-  color: #c568ff;
+  color:#ffffff;
 }
 
 #booking-modal-close {
@@ -628,10 +629,10 @@ body::before {
   padding: 10px;
   background: #a416fd;
   color: #e7f52c;
-  border: none;
+  border: 2px solid #e7f52c;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 800;
   cursor: pointer;
 }
 
